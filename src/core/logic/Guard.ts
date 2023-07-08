@@ -88,7 +88,8 @@ export class Guard {
     max: number,
     argumentName: string,
   ): IGuardResult {
-    let failingResult: IGuardResult = null;
+    let failingResult: IGuardResult | null = null;
+
     for (const num of numbers) {
       const numIsInRangeResult = this.inRange(num, min, max, argumentName);
       if (!numIsInRangeResult.isSuccess) {
