@@ -19,10 +19,6 @@ export class Identifier<T> {
     return String(this.value);
   }
 
-  /**
-   * Return raw value of identifier
-   */
-
   toValue(): T {
     return this.value;
   }
