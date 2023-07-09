@@ -1,9 +1,9 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
 /* eslint-disable new-cap */
-export const ClientModel = (sequelize: Sequelize) => {
-  const Client = sequelize.define(
-    'client',
+export const GuideModel = (sequelize: Sequelize) => {
+  const Guide = sequelize.define(
+    'guide',
     {
       entityId: {
         type: DataTypes.UUID,
@@ -14,22 +14,13 @@ export const ClientModel = (sequelize: Sequelize) => {
         type: DataTypes.STRING(250),
         allowNull: false,
       },
-      phone: {
-        type: DataTypes.STRING(250),
-        allowNull: false,
-      },
-      participantNumber: {
-        type: DataTypes.STRING(250),
-        allowNull: false,
-        unique: true,
-      },
     },
     {
       timestamps: true,
       underscored: true,
-      tableName: 'client',
+      tableName: 'guide',
     },
   );
 
-  return Client;
+  return Guide;
 };

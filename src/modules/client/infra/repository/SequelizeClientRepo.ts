@@ -1,6 +1,5 @@
-import { PhoneNumber } from '../../../../core/domain/ValueObjects/PhoneNumber';
+import { Repository } from '../../../../core/infra/Repository';
 import { Client } from '../../domain/Client';
-import { ClientRepo } from '../../domain/ClientRepo';
 import { ClientMap } from '../mappers/clientMap';
 
 type BaseQuery = {
@@ -18,7 +17,7 @@ type BaseQuery = {
 //   }
 // }
 
-export class SequelizeClientRepo implements ClientRepo {
+export class SequelizeClientRepo implements Repository<Client> {
   private models: any;
 
   constructor(models: any) {
@@ -31,42 +30,42 @@ export class SequelizeClientRepo implements ClientRepo {
     };
   }
 
-  public async findClientByPhone(phone: PhoneNumber): Promise<Client> {
+  public async findById(client: Client): Promise<Client> {
     const baseQuery = this.createBaseQuery();
-    baseQuery.where.phone = phone.value;
+    baseQuery.where.id = client.id.toValue().toString();
 
-    const client = await this.models.Client.findOne(baseQuery);
+    const result = await this.models.Client.findOne(baseQuery);
 
-    if (!client) {
-      return null;
+    if (!result) {
+      return null as unknown as Client;
     }
 
-    return client;
+    return result;
   }
 
-  public async exists(phone: PhoneNumber): Promise<boolean> {
+  public async exists(client: Client): Promise<boolean> {
     const baseQuery = this.createBaseQuery();
-    baseQuery.where.phone = phone.value;
-    const client = await this.models.Client.findOne(baseQuery);
+    baseQuery.where.id = client.id.toValue().toString();
+    const result = await this.models.Client.findOne(baseQuery);
 
-    return Boolean(client) === true;
+    return Boolean(result) === true;
   }
 
   public async save(client: Client): Promise<void> {
-    const ClientMode = this.models.Client;
-    const exists = await this.exists(client.phoneNumber);
+    const ClientModel = this.models.Client;
+    const exists = await this.exists(client);
     const map = new ClientMap();
     const rawUser = map.toPersistence(client);
 
     try {
       if (exists) {
-        const sequelizeUserInstance = await ClientMode.findOne({
-          where: { phone: client.phoneNumber.value },
+        const sequelizeUserInstance = await ClientModel.findOne({
+          where: { id: client.id.toValue() },
         });
 
         await sequelizeUserInstance.update(rawUser);
       } else {
-        await ClientMode.create(rawUser);
+        await ClientModel.create(rawUser);
       }
     } catch (err) {
       throw new Error();

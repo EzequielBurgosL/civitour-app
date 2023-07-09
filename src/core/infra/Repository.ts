@@ -1,4 +1,5 @@
-export interface Repo<T> {
-  exists(t: T): Promise<boolean>;
-  save(t: T): Promise<T>;
+export interface Repository<DomainType> {
+  exists(entity: DomainType): Promise<boolean>;
+  save(entity: DomainType): Promise<void>;
+  findById(entity: DomainType): Promise<DomainType>;
 }
