@@ -1,6 +1,6 @@
 import { UniqueEntityID } from './UniqueEntityID';
 
-const isEntity = (v: any): v is Entity<any> => v instanceof Entity;
+const isEntity = (value: unknown): value is Entity<unknown> => value instanceof Entity;
 
 export abstract class Entity<T> {
   protected readonly _id: UniqueEntityID;

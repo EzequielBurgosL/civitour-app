@@ -27,7 +27,7 @@ export class GuideMap implements Mapper<Guide, rawGuide> {
     );
 
     if (!GuideOrError.isSuccess) {
-      return GuideOrError.error as Guide;
+      throw new Error(GuideOrError.error);
     }
 
     return GuideOrError.getValue();

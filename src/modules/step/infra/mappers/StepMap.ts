@@ -2,7 +2,7 @@ import { UniqueEntityID } from '../../../../core/domain/UniqueEntityID';
 import { Description } from '../../../../core/domain/ValueObjects/Description';
 import {
   Coordinates,
-  Location,
+  Location
 } from '../../../../core/domain/ValueObjects/Location';
 import { Name } from '../../../../core/domain/ValueObjects/Name';
 import { Mapper } from '../../../../core/infra/Mapper';
@@ -40,7 +40,7 @@ export class StepMap implements Mapper<Step, rawStep> {
     );
 
     if (!StepOrError.isSuccess) {
-      return StepOrError.error as Step;
+      throw new Error(StepOrError.error);
     }
 
     return StepOrError.getValue();

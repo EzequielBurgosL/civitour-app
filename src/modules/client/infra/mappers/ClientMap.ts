@@ -39,7 +39,7 @@ export class ClientMap implements Mapper<Client, rawClient> {
     );
 
     if (!ClientOrError.isSuccess) {
-      return ClientOrError.error as Client;
+      throw new Error(ClientOrError.error);
     }
 
     return ClientOrError.getValue();

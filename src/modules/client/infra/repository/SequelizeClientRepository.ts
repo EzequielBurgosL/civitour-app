@@ -17,7 +17,7 @@ type BaseQuery = {
 //   }
 // }
 
-export class SequelizeClientRepo implements Repository<Client> {
+export class SequelizeClientRepository implements Repository<Client> {
   private models: any;
 
   constructor(models: any) {
