@@ -1,5 +1,5 @@
-//  Título, la descripción y la localización donde se produce
 import { Entity } from '../../../core/domain/Entity';
+import { UniqueEntityID } from '../../../core/domain/UniqueEntityID';
 import { Description } from '../../../core/domain/ValueObjects/Description';
 import { Location } from '../../../core/domain/ValueObjects/Location';
 import { Title } from '../../../core/domain/ValueObjects/Title';
@@ -13,15 +13,27 @@ interface StepProps {
 }
 
 export class Step extends Entity<StepProps> {
-  private constructor(props: StepProps) {
-    super(props);
+  private constructor(props: StepProps, id?: UniqueEntityID) {
+    super(props, id);
+  }
+
+  get id(): UniqueEntityID {
+    return this._id;
   }
 
   get title(): Title {
     return this.props.title;
   }
 
-  public static create(props: StepProps) {
+  get description(): Description {
+    return this.props.description;
+  }
+
+  get location(): Location {
+    return this.props.location;
+  }
+
+  public static create(props: StepProps, id?: UniqueEntityID) {
     const stepPropsResult = Guard.againstNullOrUndefinedBulk([
       { argumentName: 'title', argument: props.title },
       { argumentName: 'description', argument: props.description },
@@ -29,7 +41,7 @@ export class Step extends Entity<StepProps> {
     ]);
 
     if (stepPropsResult.isSuccess) {
-      return Result.ok<Step>(new Step(props));
+      return Result.ok<Step>(new Step(props, id));
     }
 
     return Result.fail<Step>(stepPropsResult.error);

@@ -9,7 +9,7 @@ type BaseQuery = {
   includes?: any;
 };
 
-export class SequelizeGuideRepo implements Repository<Guide> {
+export class SequelizeGuideRepository implements Repository<Guide> {
   private models: any;
 
   constructor(models: any) {
@@ -38,7 +38,7 @@ export class SequelizeGuideRepo implements Repository<Guide> {
   public async exists(guide: Guide): Promise<boolean> {
     const baseQuery = this.createBaseQuery();
     baseQuery.where.id = guide.id.toValue().toString();
-    const result = await this.models.guide.findOne(baseQuery);
+    const result = await this.models.Guide.findOne(baseQuery);
 
     return Boolean(result) === true;
   }

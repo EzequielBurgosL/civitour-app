@@ -1,6 +1,6 @@
 import { ClientModel } from '../models/sequelize/client';
-import { SequelizeClientRepo } from './SequelizeClientRepo';
+import { SequelizeClientRepository } from './SequelizeClientRepository';
 
-const clientRepo = new SequelizeClientRepo(ClientModel);
+const clientRepository = new SequelizeClientRepository(ClientModel);
 
-export { clientRepo };
+export { clientRepository };

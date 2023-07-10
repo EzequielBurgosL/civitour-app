@@ -1,6 +1,6 @@
 import { ValueObject } from '.';
 
-type Coordinates = {
+export type Coordinates = {
   latitude: string;
   longitude: string;
 };

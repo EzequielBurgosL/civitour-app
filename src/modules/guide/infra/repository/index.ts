@@ -1,6 +1,6 @@
 import { GuideModel } from '../models/sequelize/guide';
-import { SequelizeGuideRepo } from './SequelizeGuideRepo';
+import { SequelizeGuideRepository } from './SequelizeGuideRepository';
 
-const clientRepo = new SequelizeGuideRepo(GuideModel);
+const guideRepository = new SequelizeGuideRepository(GuideModel);
 
-export { clientRepo };
+export { guideRepository };
