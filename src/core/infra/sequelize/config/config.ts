@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
-require('dotenv').config();
+import dotenv from 'dotenv';
+import { Sequelize } from 'sequelize';
+dotenv.config();
 
 const {
   CIVITOUR_DB_USER,
@@ -17,7 +18,7 @@ const databaseCredentials = {
     password: CIVITOUR_DB_PASS,
     database: CIVITOUR_DB_PROD_DB_NAME,
     host: CIVITOUR_DB_HOST,
-    dialect: 'mysql',
+    dialect: 'postgres',
   },
 };
 
